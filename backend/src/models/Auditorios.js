@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const auditorioSchema = new Schema({
     cedula: {
@@ -26,6 +26,11 @@ const auditorioSchema = new Schema({
         trim: true,
         required: true,
     },
+    usuario:{
+        type: Schema.Types.ObjectId,
+        ref: "Usuarios",
+        requ
+    }
 
 })
 
