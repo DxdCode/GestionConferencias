@@ -21,6 +21,11 @@ const reservaSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Conferencistas",
         required: true,
+    },
+    usuario:{
+        type: Schema.Types.ObjectId,
+        ref: "Usuarios",
+        required: true,
     }
 }, {
     timestamps: true

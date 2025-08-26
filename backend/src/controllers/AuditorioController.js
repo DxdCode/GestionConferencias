@@ -32,7 +32,7 @@ const crearAuditorio = async (req, res) => {
 const visualizarAuditorio = async (req, res) => {
     try {
         const auditorio = await Auditorios.findOne({ usuario: req.usuarioBDD })
-            .select("-__v -createdAt -updatedAt");
+            .select("-__v -createdAt -updatedAt -usuario");
 
         if (!auditorio) 
             return res.status(404).json({ msg: "No se encontraron auditorios para este usuario" });
@@ -79,7 +79,7 @@ const actualizarAuditorio = async (req, res) => {
         auditorio.descripcion = descripcion ?? auditorio.descripcion;
 
         await auditorio.save();
-        return res.status(200).json({ msg: "Actualizado correctamente el Auditorio", auditorio });
+        return res.status(200).json({ msg: "Actualizado correctamente el Auditorio"});
     } catch (error) {
         console.log(error);
         return res.status(500).json({ msg: "Error con el servidor de Auditorio" });

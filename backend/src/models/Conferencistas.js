@@ -1,6 +1,5 @@
-import { model, Schema } from 'mongoose';
-
-const conferencistaSchema = new Schema({
+import { Schema, model } from 'mongoose'
+const ConferencistaSchema = new Schema({
     nombre: {
         type: String,
         trim: true,
@@ -53,13 +52,17 @@ const conferencistaSchema = new Schema({
         trim: true,
         required: true,
     },
-    usuario:{
+    usuario: {
         type: Schema.ObjectId,
-        ref:"Usuarios",
-        required:true
-    }
-}, {
-    timestamps: true
-})
+        ref: "Usuarios",
+        required: true
+    },
 
-export default model("Conferencistas", conferencistaSchema)
+},
+    {
+        timestamps: true
+
+    }
+);
+
+export default model("Conferencistas", ConferencistaSchema)
