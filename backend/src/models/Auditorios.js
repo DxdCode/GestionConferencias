@@ -29,7 +29,7 @@ const auditorioSchema = new Schema({
     usuario:{
         type: Schema.Types.ObjectId,
         ref: "Usuarios",
-        requ
+        required:true
     }
 
 })

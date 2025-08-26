@@ -18,7 +18,7 @@ const conferencistaSchema = new Schema({
     },
     genero: {
         type: String,
-        enum: ['Masculino', 'Femenino', 'Otro'],
+        enum: ['masculino', 'femenino', 'otro'],
         required: true,
     },
     ciudad: {
@@ -52,8 +52,13 @@ const conferencistaSchema = new Schema({
         type: String,
         trim: true,
         required: true,
+    },
+    usuario:{
+        type: Schema.ObjectId,
+        ref:"Usuarios",
+        required:true
     }
-},{
+}, {
     timestamps: true
 })
 
