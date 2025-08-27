@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Auditorios from "../models/Auditorios";
+import Auditorios from "../models/Auditorios.js";
 
 // Crear auditorio
 const crearAuditorio = async (req, res) => {

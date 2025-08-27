@@ -1,0 +1,22 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 20
+      arrivalRate: 5
+
+scenarios:
+  - flow:
+      - post:
+          url: "/login"
+          json:
+            email: "david@example.com"
+            password: "abcd"
+          headers:
+            Content-Type: "application/json"
+          capture:
+            - json: "$.token"
+              as: "token"
+      - get:
+          url: "/auditorio"
+          headers:
+            Authorization: "Bearer {{ token }}"

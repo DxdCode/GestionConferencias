@@ -1,7 +1,7 @@
-import Reservas from "../models/Reservas"
+import Reservas from "../models/Reservas.js"
 
 const crearReserva = async (req, res) => {
-    const { codigo } = req.body
+    const { codigo ,auditorios, conferencistas} = req.body
 
     if (Object.values(req.body).includes("")) return res.status(400).json({ msg: "Llenar todo los campos" })
     const reservaExiste = await Reservas.findOne({ codigo })

@@ -17,7 +17,7 @@ const reservaSchema = new Schema({
         ref: "Auditorios",
         required: true,
     },
-    Conferencistas: {
+    conferencistas: {
         type: Schema.Types.ObjectId,
         ref: "Conferencistas",
         required: true,

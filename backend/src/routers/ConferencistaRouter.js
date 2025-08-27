@@ -1,6 +1,6 @@
 import {Router} from 'express'
-import { actualizarConferencista, crearConferencista, eliminarConferencista, visualizarConferencista } from '../controllers/ConferencistasController';
-import { verificarTokenJWT } from '../middlewares/JWT';
+import { actualizarConferencista, crearConferencista, eliminarConferencista, visualizarConferencista } from '../controllers/ConferencistasController.js';
+import { verificarTokenJWT } from '../middlewares/JWT.js';
 
 const router = Router()
 
