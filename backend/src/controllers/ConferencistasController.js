@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import Conferencistas from "../models/Conferencistas"
+import Conferencistas from "../models/Conferencistas.js"
 
 const crearConferencista = async (req, res) => {
     const { cedula, genero, telefono, email } = req.body
