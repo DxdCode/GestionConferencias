@@ -1,48 +1,72 @@
-import { LogIn, UserPlus } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import CardHome from './CardHome'
+import React, { useState } from 'react'
+import { X } from 'lucide-react'
+import imagenHome from '../../assets/imagen.png'
+import Card from './CardHome'
+
 function Home() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleModal = () => setIsOpen(!isOpen)
+
   return (
-    <section className='min-h-screen bg-base flex flex-col items-center px-4 sm:justify-center justify-start text-center relative'>
+    <div className="min-h-screen flex flex-col">
+      {/* Contenedor principal mitad y mitad */}
+      <div className="flex flex-1 flex-row">
+        {/* Mitad izquierda: imagen (oculta en móviles) */}
+        <div className="w-1/2 bg-gray-50 flex items-center justify-center hidden md:flex">
+          <img
+            src={imagenHome}
+            alt="Imagen de Inicio"
+            className="w-1/2 h-auto object-contain"
+          />
+        </div>
 
-      {/* Contenedor de círculos */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="hidden sm:block absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-48 h-48 bg-purple-200 rounded-full sm:w-92 sm:h-92"></div>
-        <div className="hidden sm:block absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 w-48 h-48 bg-sky-300 rounded-full sm:w-72 sm:h-72"></div>
-        <div className="absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/4 w-48 h-48 bg-blue-200 rounded-full sm:w-80 sm:h-80"></div>
-        <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-48 h-48 bg-purple-300 rounded-full sm:w-80 sm:h-80"></div>
-      </div>
-
-      {/* Contenedor*/}
-      <div className="w-full max-w-4xl z-10 relative">
-        {/* Titulo con iconos */}
-        <div className="text-center flex flex-1 flex-col pt-4">
-          <h1 className="text-4xl py-5 font-bold text-main sm:text-[3em]">
-            Bienvenido 👋 <br />
-            <span className="text-sec">Gestión de Conferencias</span>
+        {/* Contenido */}
+        <div className="w-full md:w-1/2 bg-gray-50 flex flex-col items-center justify-center p-10 text-center">
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-6">
+            Bienvenido
           </h1>
-          <p className="md:text-lg text-sec text-[1em]">
+          <p className="text-gray-600 text-lg mb-8">
+            Gestión de tus conferencias, reserva y auditorias de manera rápida.
           </p>
-        </div>
 
-        {/* Cards */}
-        <div className="w-full py-10 flex justify-center">
-          <CardHome/>
-        </div>
-
-        {/* Botones con iconos */}
-        <div className="flex flex-col px-6 py-6 sm:px-12 sm:flex-row justify-center sm:justify-evenly gap-4 pt-6">
-          <Link to={"/login"} className="cursor-pointer bg-primary text-terc py-3 text-base px-6 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 hover:scale-105 transition transform shadow-md sm:text-lg">
-            <LogIn size={20} />
-            Iniciar Sesión
-          </Link>
-          <Link to={"/register"} className="cursor-pointer bg-secondary text-terc py-3 px-6 text-base rounded-xl flex items-center justify-center gap-2 hover:opacity-90 hover:scale-105 transition transform shadow-md sm:text-lg">
-            <UserPlus size={20} />
-            Registrarse
-          </Link>
+          {/* Botones de acción */}
+          <div className="flex flex-col md:flex-row gap-4">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition transform hover:scale-105">
+              Login
+            </button>
+            <button
+              className="bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold transition transform hover:scale-105"
+              onClick={toggleModal}
+            >
+              Más Info
+            </button>
+          </div>
         </div>
       </div>
-    </section>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={toggleModal}
+        >
+          <div className="bg-white rounded-lg w-full max-w-6xl h-auto overflow-auto shadow-lg" onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-full relative flex flex-col justify-center">
+              <button
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+                onClick={toggleModal}><X size={24} />
+              </button>
+              <Card />
+            </div>
+          </div>
+        </div>
+      )}
+
+      <footer className="bg-gray-100 text-gray-600 py-4 text-center">
+        © 2025 Gestión de Conferencias. Todos los derechos reservados.
+      </footer>
+    </div>
   )
 }
 
