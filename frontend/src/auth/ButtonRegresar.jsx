@@ -7,7 +7,7 @@ function ButtonRegresar() {
   // Definir colores segun la pagina
   const styles = {
     '/register': 'bg-[#8B5CB1] text-white',
-    '/login': 'bg-blue-700 hover:bg-blue-700 text-white',
+    '/login': 'bg-blue-600 hover:bg-blue-700 text-white',
   };
 
   const buttonStyle = styles[location.pathname] || 'bg-gray-200 text-main';

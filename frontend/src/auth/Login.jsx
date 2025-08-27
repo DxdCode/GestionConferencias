@@ -54,9 +54,6 @@ function Login() {
 
                     {/* Card del login */}
                     <div className="w-full bg-gray-50 p-8 rounded-2xl shadow-lg relative z-10" >
-                        <h2 className="text-3xl font-bold text-center mb-6 text-sec">
-                            Iniciar Sesión
-                        </h2>
 
                         <form onSubmit={handleSubmit(loginUser)} className="flex flex-col gap-4">
                             {/* Correo */}
