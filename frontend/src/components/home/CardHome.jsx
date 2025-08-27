@@ -4,19 +4,19 @@ function Card() {
   const cards = [
     {
       id: 1,
-      dato: "Estudiantes",
+      dato: "Conferencistas",
       bg: "bg-blue-600",         
       iconColor: "text-white"
     },
     {
       id: 2,
-      dato: "Materias",
+      dato: "Auditorios",
       bg: "bg-indigo-500",       
       iconColor: "text-white"
     },
     {
       id: 3,
-      dato: "Matrículas",
+      dato: "Reservas",
       bg: "bg-green-600",         
       iconColor: "text-white"
     }

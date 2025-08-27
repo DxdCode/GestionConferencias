@@ -6,7 +6,6 @@ function ButtonRegresar() {
 
   // Definir colores segun la pagina
   const styles = {
-    '/register': 'bg-[#8B5CB1] text-white',
     '/login': 'bg-blue-600 hover:bg-blue-700 text-white',
   };
 
@@ -15,7 +14,7 @@ function ButtonRegresar() {
   return (
     <Link
       to="/"
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg font-bold hover:opacity-90 transition z-20 ${buttonStyle}`}
+      className={`flex items-center gap-2 px-3 py-2 rounded-lg font-bold hover:opacity-90  z-20 hover:scale-105 transition ${buttonStyle}`}
       style={{ marginBottom: '1rem' }}
     >
       <ArrowLeft size={20} />
