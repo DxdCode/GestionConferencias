@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { X } from 'lucide-react'
+import { Link } from "react-router-dom";
 import imagenHome from '../../assets/imagen.png'
 import Card from './CardHome'
 
@@ -32,14 +33,15 @@ function Home() {
 
           {/* Botones de acción */}
           <div className="flex flex-col md:flex-row gap-4">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition transform hover:scale-105">
-              Login
-            </button>
+            <Link to={'/login'} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition transform hover:scale-105">
+              Iniciar Sesión
+            </Link>
+
             <button
               className="bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold transition transform hover:scale-105"
               onClick={toggleModal}
             >
-              Más Info
+              Más Informacion
             </button>
           </div>
         </div>

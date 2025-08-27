@@ -7,7 +7,7 @@ export default function useConferencistas() {
     const [conferencistas, setConferencistas] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const token = JSON.parese(localStorage.getItem("auth-token"))?.state?.token || "";
+    const token = JSON.parse(localStorage.getItem("auth-token"))?.state?.token || "";
     const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
 
     // Obtener Conferencistas
