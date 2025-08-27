@@ -1,42 +1,60 @@
 import { Newspaper, Binoculars, Pencil, Trash } from 'lucide-react';
 
 function Card() {
-    const cards = [
-        { id: 1, dato: "Estudiantes", color: "bg-card text-sec" },
-        { id: 2, dato: "Materias", color: "bg-card text-sec" },
-        { id: 3, dato: "Matrículas", color: "bg-card text-sec" }
-    ];
+  const cards = [
+    {
+      id: 1,
+      dato: "Estudiantes",
+      bg: "bg-blue-600",         
+      iconColor: "text-white"
+    },
+    {
+      id: 2,
+      dato: "Materias",
+      bg: "bg-indigo-500",       
+      iconColor: "text-white"
+    },
+    {
+      id: 3,
+      dato: "Matrículas",
+      bg: "bg-green-600",         
+      iconColor: "text-white"
+    }
+  ];
 
-    return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center w-full">
-            {cards.map(card => (
-                <div
-                    key={card.id}
-                    className={`flex flex-col gap-4 rounded-2xl shadow-lg w-3/4 md:w-full md:max-w-md overflow-hidden ${card.color} hover:scale-105 transition-transform duration-300 cursor-pointer`}
-                >
-                    <h2 className='bg-secondary text-white text-center py-3 font-bold'>
-                        CRUD de {card.dato}
-                    </h2>
+  return (
+    <div className="flex flex-col w-full p-8 md:p-8">
+      <h2 className="text-2xl font-bold m-6 text-center text-gray-900">¿Qué puedes hacer?</h2>
 
-                    {/* Contenido de la tarjeta */}
-                    <div className="flex flex-col gap-4 p-5">
-                        <div className="flex items-center gap-3 text-base md:text-lg">
-                            <Newspaper size={20} className='text-blue-700' /> Crear {card.dato}
-                        </div>
-                        <div className="flex items-center gap-3 text-base md:text-lg">
-                            <Binoculars size={20} className='text-green-600' /> Visualizar {card.dato}
-                        </div>
-                        <div className="flex items-center gap-3 text-base md:text-lg">
-                            <Pencil size={20} className='text-yellow-500' /> Editar {card.dato}
-                        </div>
-                        <div className="flex items-center gap-3 text-base md:text-lg">
-                            <Trash size={20} className='text-red-600' /> Eliminar {card.dato}
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+        {cards.map(card => (
+          <div
+            key={card.id}
+            className={`flex flex-col gap-4 shadow-lg w-full hover:scale-102 transition-transform duration-300 cursor-pointer rounded-4xl`}
+          >
+            <h3 className={`${card.bg} ${card.iconColor} text-center py-3 font-bold rounded-t-lg`}>
+              CRUD de {card.dato}
+            </h3>
+
+            <div className="flex flex-col gap-3 p-4 bg-gray-50">
+              <div className="flex items-center gap-3 text-gray-900">
+                <Newspaper size={20} className="text-gray-600" /> Crear {card.dato}
+              </div>
+              <div className="flex items-center gap-3 text-gray-900">
+                <Binoculars size={20} className="text-gray-600" /> Visualizar {card.dato}
+              </div>
+              <div className="flex items-center gap-3 text-gray-900">
+                <Pencil size={20} className="text-gray-600" /> Editar {card.dato}
+              </div>
+              <div className="flex items-center gap-3 text-gray-900">
+                <Trash size={20} className="text-gray-600" /> Eliminar {card.dato}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Card;
