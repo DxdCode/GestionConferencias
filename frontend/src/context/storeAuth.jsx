@@ -27,7 +27,9 @@ const storeAuth = create(
         {
             name: "auth-token",
         }
+        
     )
+    
 );
 
 export default storeAuth;

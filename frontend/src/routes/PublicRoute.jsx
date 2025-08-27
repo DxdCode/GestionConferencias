@@ -3,7 +3,7 @@ import storeAuth from "../context/storeAuth"
 
 const PublicRoute = () =>{
     const token = storeAuth((state) => state.token)
-    return token ? <Navigate to="/"/> : <Outlet/>
+    return token ? <Navigate to="/dashboard"/> : <Outlet/>
 }
 
 export default PublicRoute

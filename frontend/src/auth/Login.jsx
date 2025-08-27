@@ -32,7 +32,7 @@ function Login() {
                 setApellido(response.apellido);
                 setEmail(response.email);
 
-                toast.success(response?.msg || "Login Correcto");
+                toast.success(response?.msg || "Inicio de Sesion Correcto");
                 navigate("/dashboard");
             } else {
                 toast.error(response?.msg || "Error al iniciar sesión");
