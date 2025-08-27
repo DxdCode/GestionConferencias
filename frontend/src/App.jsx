@@ -6,6 +6,9 @@ import Login from './auth/Login'
 import Home from './components/home/Home'
 import Dashboard from './dashboard/Dashboard'
 import Layout from './components/home/Layout'
+import CrearConferencista from './components/conferencistas/CrearConferencista'
+import GestionarConferencista from './components/conferencistas/GestionarConferencista'
+
 
 function App() {
   return (
@@ -21,6 +24,10 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Layout />}>
             <Route index element={<Dashboard />} />
+            {/* CRUD DE CONFERENCISTAS */}
+            <Route path="conferencistas/crear" element={<CrearConferencista />} />
+            <Route path="conferencistas/gestionar" element={<GestionarConferencista />} />
+
           </Route>
         </Route>
       </Routes>

@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { User, LogOut, Plus, FileText, Edit, Home } from "lucide-react";
+import { User, LogOut, Plus, Edit, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import storeAuth from "../../context/storeAuth";
 
@@ -22,22 +22,22 @@ function Sidebar({ open, setOpen }) {
         {
             label: "Conferencistas",
             actions: [
-                { name: "Crear", path: "/dashboard/estudiantes/crear", icon: <Plus size={16} /> },
-                { name: "Gestionar", path: "/dashboard/estudiantes/gestionar", icon: <Edit size={16} /> },
+                { name: "Crear", path: "/dashboard/conferencistas/crear", icon: <Plus size={16} /> },
+                { name: "Gestionar", path: "/dashboard/conferencistas/gestionar", icon: <Edit size={16} /> },
             ]
         },
         {
             label: "Auditorios",
             actions: [
-                { name: "Crear", path: "/dashboard/materias/crear", icon: <Plus size={16} /> },
-                { name: "Gestionar", path: "/dashboard/materias/gestionar", icon: <Edit size={16} /> },
+                { name: "Crear", path: "/dashboard/auditorios/crear", icon: <Plus size={16} /> },
+                { name: "Gestionar", path: "/dashboard/auditorios/gestionar", icon: <Edit size={16} /> },
             ]
         },
         {
             label: "Reservas",
             actions: [
-                { name: "Crear", path: "/dashboard/matriculas/crear", icon: <Plus size={16} /> },
-                { name: "Gestionar", path: "/dashboard/matriculas/gestionar", icon: <Edit size={16} /> },
+                { name: "Crear", path: "/dashboard/reservas/crear", icon: <Plus size={16} /> },
+                { name: "Gestionar", path: "/dashboard/reservas/gestionar", icon: <Edit size={16} /> },
             ]
         }
     ];
@@ -59,17 +59,17 @@ function Sidebar({ open, setOpen }) {
                 ${open ? "w-64" : "w-16"}`}
         >
             {/* Info Usuario */}
-            <div className="flex items-center gap-3 p-4 bg-card">
+            <div className="flex items-center gap-3 p-4 bg-white border-b border-gray-500">
                 <div
-                    className="p-2 bg-secondary rounded-full cursor-pointer hover:bg-secondary/80 transition-colors duration-200"
+                    className="p-2 bg-blue-900 rounded-full cursor-pointer hover:bg-blue-700 transition-colors duration-200"
                     onClick={() => setOpen(!open)}
                 >
                     <User size={24} className="text-white" />
                 </div>
                 {open && (
                     <div className="text-sm">
-                        <p className="font-semibold truncate">{nombre} {apellido}</p>
-                        <span className="inline-block px-2 py-1 bg-secondary rounded text-xs truncate max-w-[150px] text-white">{email}</span>
+                        <p className="font-semibold truncate text-black">{nombre ?? ''} {apellido ?? ''}</p>
+                        <span className="inline-block px-2 py-1 bg-secondary rounded text-xs truncate max-w-[150px] text-black">{email}</span>
                     </div>
                 )}
             </div>

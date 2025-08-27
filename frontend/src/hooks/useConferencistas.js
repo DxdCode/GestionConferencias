@@ -18,7 +18,7 @@ export default function useConferencistas() {
                 method: "GET",
                 config: { headers },
             });
-            setConferencistas(response);
+            setConferencistas(response.conferencista || []);
         } catch (error) {
             toast.error(error.response?.data?.msg || error.response?.data);
         } finally {
@@ -47,7 +47,7 @@ export default function useConferencistas() {
         }
     };
 
-    //Eliminar Conferencista
+    // Eliminar Conferencista
     const eliminarConferencistas = async (id) => {
         if (!confirm("¿Estás seguro de eliminar este conferencista?")) return;
         try {
@@ -75,14 +75,18 @@ export default function useConferencistas() {
         } catch (error) {
             toast.error(error.response?.data?.msg || error.response?.data);
         }
-
-
-        useEffect(() => {
-            cargarConferencistas();
-        }, []);
-
-        return { conferencistas, loading, cargarConferencistas, crearConferencistas, eliminarConferencistas, actualizarConferencistas };
     };
 
-}
+    useEffect(() => {
+        cargarConferencistas();
+    }, []);
 
+    return { 
+        conferencistas, 
+        loading, 
+        cargarConferencistas, 
+        crearConferencistas, 
+        eliminarConferencistas, 
+        actualizarConferencistas 
+    };
+}

@@ -24,8 +24,8 @@ function Home() {
 
         {/* Contenido */}
         <div className="w-full md:w-1/2 bg-gray-50 flex flex-col items-center justify-center p-10 text-center">
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-6">
-            Bienvenido
+          <h1 className="text-6xl font-extrabold text-gray-900 mb-6">
+            Bienvenido al Sistema de Gestión de Conferencias
           </h1>
           <p className="text-gray-600 text-lg mb-8">
             Gestión de tus conferencias, reserva y auditorias de manera rápida.

@@ -1,6 +1,6 @@
 
 import { Outlet } from 'react-router-dom';
-import SideBar from '../Dashboard/SideBar';
+import SideBar from '../home/SideBar';
 import { useState } from 'react';
 
 function Layout() {
