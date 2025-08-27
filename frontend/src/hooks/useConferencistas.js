@@ -14,3 +14,6 @@ const headers = {Authorization: `Bearer ${token}`,"Content-Type": "application/j
 // Obtener Conferencistas
 const cargarConferencistas = async () => {
     setLoading(true);
+    try{
+        
+    }
