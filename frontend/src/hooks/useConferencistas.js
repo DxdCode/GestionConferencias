@@ -18,7 +18,7 @@ export default function useConferencistas() {
                 method: "GET",
                 config: { headers },
             });
-            setConferencistas(response.conferencista || []);
+            setConferencistas(response);
         } catch (error) {
             toast.error(error.response?.data?.msg || error.response?.data);
         } finally {

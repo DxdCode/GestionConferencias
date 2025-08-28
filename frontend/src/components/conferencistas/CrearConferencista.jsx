@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import useConferencistas from "../../hooks/useConferencistas";
 import FormularioRegistro from "../../dashboard/FormularioRegistro";
 
-function CrearConferencista() {
-  const { crearConferencista, loading } = useConferencistas();
+function CrearConferencistas() {
+  const { crearConferencistas, loading } = useConferencistas();
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
@@ -22,7 +22,7 @@ function CrearConferencista() {
   ].map(f => ({ ...f, register: register(f.name, { required: `Debe ingresar ${f.label.toLowerCase()}` }), error: errors[f.name]?.message }));
 
   const onSubmit = handleSubmit((data) => {
-    crearConferencista(data, () => {
+    crearConferencistas(data, () => {
       reset();
       setTimeout(() => navigate("/dashboard/conferencistas/gestionar"), 2000);
     });
@@ -31,4 +31,4 @@ function CrearConferencista() {
   return <FormularioRegistro titulo="Crear Conferencista" fields={fields} onSubmit={onSubmit} loading={loading} />;
 }
 
-export default CrearConferencista;
+export default CrearConferencistas;
