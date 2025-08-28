@@ -1,4 +1,4 @@
-import Reservas from "../models/Reservas"
+import Reservas from "../models/Reservas.js"
 
 const crearReserva = async (req, res) => {
     const { codigo } = req.body

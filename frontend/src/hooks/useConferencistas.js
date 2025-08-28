@@ -15,8 +15,8 @@ export default function useConferencistas() {
         setLoading(true);
         try {
             const response = await fetchDataBackend(`${import.meta.env.VITE_URL_BACKEND}/conferencista`, {
-                method: "GET",
-                config: { headers },
+            method: "GET",
+            config: { headers },
             });
             setConferencistas(response);
         } catch (error) {
@@ -81,12 +81,12 @@ export default function useConferencistas() {
         cargarConferencistas();
     }, []);
 
-    return { 
-        conferencistas, 
-        loading, 
-        cargarConferencistas, 
-        crearConferencistas, 
-        eliminarConferencistas, 
-        actualizarConferencistas 
+    return {
+        conferencistas,
+        loading,
+        cargarConferencistas,
+        crearConferencistas,
+        eliminarConferencistas,
+        actualizarConferencistas
     };
 }
