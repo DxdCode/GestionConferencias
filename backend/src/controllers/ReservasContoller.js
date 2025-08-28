@@ -1,4 +1,5 @@
 import Reservas from "../models/Reservas.js"
+import mongoose from "mongoose";
 
 const crearReserva = async (req, res) => {
     const { codigo } = req.body
