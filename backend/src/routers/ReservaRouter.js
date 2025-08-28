@@ -1,6 +1,8 @@
 
 import {Router} from 'express'
+
 import { actualizarReserva, crearReserva, eliminarReserva, visualizarReservas, visualizarUnaReserva } from '../controllers/ReservasContoller.js';
+
 import { verificarTokenJWT } from '../middlewares/JWT.js';
 
 const router = Router()

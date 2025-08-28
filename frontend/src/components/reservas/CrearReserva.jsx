@@ -1,133 +1,97 @@
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import { Plus } from "lucide-react";
-
 import useReservas from "../../hooks/useReservas";
 import useAuditorios from "../../hooks/useAuditorios";
 import useConferencistas from "../../hooks/useConferencistas";
-
-import FormReserva from "./componentes/FormReserva";
-import ModalSelector from "./componentes/ModalSelector";
-import CardItem from "./componentes/CardItem";
-import SelectedConferencista from "./componentes/SelectConferencista";
-import SelectedAuditorios from "./componentes/SelectedAuditorios";
+import FormGenerico from "../../dashboard/FormularioRegistro";
+import { toast } from "react-toastify";
 
 function CrearReserva() {
-  const { crearReserva, loading } = useReservas();
-  const { auditorios } = useAuditorios();
-  const { conferencistas } = useConferencistas();
+  const { crearReserva, loading: reservasLoading } = useReservas();
+  const { auditorios, loading: auditoriosLoading } = useAuditorios(); // <-- nombre en plural
+  const { conferencistas, loading: conferencistasLoading } = useConferencistas();
   const navigate = useNavigate();
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm();
 
-  const [selectedConferencista, setSelectedConferencista] = useState(null);
-  const [selectedAuditorios, setSelectedAuditorios] = useState([]);
-  const [isOpenConferencista, setIsOpenConferencista] = useState(false);
-  const [isOpenAuditorios, setIsOpenAuditorios] = useState(false);
+  const isLoading = reservasLoading || auditoriosLoading || conferencistasLoading;
 
-  // Handlers conferencista
-  const handleClickConferencista = (conf) => setSelectedConferencista(conf);
-  const handleEliminarConferencista = () => setSelectedConferencista(null);
+  // Campos del formulario
+  const fields = [
+    {
+      label: "Auditorio",
+      name: "auditorios",
+      type: "select",
+      placeholder: "Selecciona un auditorio",
+      options: Array.isArray(auditorios)
+        ? auditorios.map(a => ({ value: a._id, label: a.nombre }))
+        : [],
+      controller: {
+        control,
+        rules: { required: "Debes seleccionar un auditorio" },
+      },
+    },
+    {
+      label: "Conferencista",
+      name: "Conferencistas",
+      type: "select",
+      placeholder: "Selecciona un conferencista",
+      options: Array.isArray(conferencistas)
+        ? conferencistas.map(c => ({ value: c._id, label: `${c.nombre} ${c.apellido}` }))
+        : [],
+      controller: {
+        control,
+        rules: { required: "Debes seleccionar un conferencista" },
+      },
+    },
+    { label: "Fecha", name: "fecha", type: "date", placeholder: "Selecciona una fecha", register: register("fecha", { required: "Debes seleccionar una fecha" }), error: errors.fecha?.message },
+    { label: "Hora Inicio", name: "horaInicio", type: "time", placeholder: "Ingresa hora de inicio", register: register("horaInicio", { required: "Debes ingresar hora de inicio" }), error: errors.horaInicio?.message },
+    { label: "Hora Fin", name: "horaFin", type: "time", placeholder: "Ingresa hora de fin", register: register("horaFin", { required: "Debes ingresar hora de fin" }), error: errors.horaFin?.message },
+    { label: "Descripción", name: "descripcion", type: "text", placeholder: "Ingresa una descripción", register: register("descripcion", { required: "Debes ingresar una descripción" }), error: errors.descripcion?.message },
+  ];
 
-  // Handlers auditorios
-  const handleClickAuditorio = (aud) => {
-    setSelectedAuditorios((prev) => {
-      if (prev.some((a) => a._id === aud._id)) {
-        toast.error("Ya agregaste ese auditorio");
-        return prev;
-      }
-      return [...prev, aud];
-    });
-  };
-  const handleEliminarAuditorio = (id) =>
-    setSelectedAuditorios((prev) => prev.filter((a) => a._id !== id));
+  const onSubmit = handleSubmit((data) => {
+    console.log("Datos del formulario en CrearReserva:", data);
 
-  // Submit
-  const crearReservaData = (data) => {
-    const submitData = {
+    const payload = {
+      codigo: "R-" + Date.now(), // Código único
       ...data,
-      conferencista: selectedConferencista?._id,
-      auditorios: selectedAuditorios.map((a) => a._id),
+      fecha: new Date(data.fecha).toISOString(),
     };
 
-    crearReserva(submitData, () => {
-      setSelectedAuditorios([]);
-      setSelectedConferencista(null);
+    crearReserva(payload, () => {
+      reset();
+      toast.success("Reserva creada correctamente");
       setTimeout(() => navigate("/dashboard/reservas/gestionar"), 2000);
     });
-  };
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-xl font-semibold text-gray-600">Cargando datos...</p>
+      </div>
+    );
+  }
+
+  if (!Array.isArray(auditorios) || auditorios.length === 0 || !Array.isArray(conferencistas) || conferencistas.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-xl font-semibold text-red-500">
+          No hay auditorios o conferencistas disponibles. Por favor, crea algunos primero.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <section>
-      <ToastContainer />
-      <h2 className="text-3xl font-bold mb-2 text-sec">Crear Reserva</h2>
-
-      {/* Formulario */}
-      <FormReserva onSubmit={crearReservaData} loading={loading} />
-
-      {/* Botones de abrir modales */}
-      <div className="flex gap-4 my-4">
-        <button
-          type="button"
-          onClick={() => setIsOpenConferencista(true)}
-          className="bg-blue-500 px-4 py-2 flex items-center gap-2 text-white rounded hover:bg-blue-600 transition"
-        >
-          <Plus size={20} /> Agregar Conferencista
-        </button>
-        <button
-          type="button"
-          onClick={() => setIsOpenAuditorios(true)}
-          className="bg-blue-500 px-4 py-2 flex items-center gap-2 text-white rounded hover:bg-blue-600 transition"
-        >
-          <Plus size={20} /> Agregar Auditorio
-        </button>
-      </div>
-
-      {/* Conferencista seleccionado */}
-      <SelectedConferencista
-        conferencista={selectedConferencista}
-        onRemove={handleEliminarConferencista}
+    <div className="max-w-3xl mx-auto p-6 bg-card rounded-xl shadow-lg mt-8">
+      <FormGenerico
+        titulo="Crear Reserva"
+        fields={fields}
+        onSubmit={onSubmit}
+        loading={isLoading}
       />
-
-      {/* Auditorios seleccionados */}
-      <SelectedAuditorios
-        auditorios={selectedAuditorios}
-        onRemove={handleEliminarAuditorio}
-      />
-
-      {/* Modal Conferencistas */}
-      <ModalSelector
-        isOpen={isOpenConferencista}
-        onClose={() => setIsOpenConferencista(false)}
-        title="Lista de Conferencistas"
-        items={conferencistas}
-        renderItem={(conf) => (
-          <CardItem
-            key={conf._id}
-            item={conf}
-            type="conferencista"
-            onClick={handleClickConferencista}
-            isSelected={selectedConferencista?._id === conf._id}
-          />
-        )}
-      />
-
-      {/* Modal Auditorios */}
-      <ModalSelector
-        isOpen={isOpenAuditorios}
-        onClose={() => setIsOpenAuditorios(false)}
-        title="Lista de Auditorios"
-        items={auditorios}
-        renderItem={(aud) => (
-          <CardItem
-            key={aud._id}
-            item={aud}
-            type="auditorio"
-            onClick={handleClickAuditorio}
-            isSelected={selectedAuditorios.some((a) => a._id === aud._id)}
-          />
-        )}
-      />
-    </section>
+    </div>
   );
 }
 

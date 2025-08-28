@@ -1,6 +1,9 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import routerUsuario from './routers/UsuarioRouter.js'
+import conferencistasRouter from './routers/ConferencistaRouter.js'
+import auditoriosRouter from './routers/AuditorioRouter.js'
+import reservaRouter from './routers/ReservaRouter.js'
 import cors from 'cors'
 import routerReserva from './routers/ReservaRouter.js'
 import routerAuditorio from './routers/AuditorioRouter.js'
@@ -19,10 +22,9 @@ app.get('/', (req, res) => {
 })
 
 app.use(routerUsuario)
-app.use(routerReserva)
-app.use(routerAuditorio)
-app.use(routerConferencia)
-
+app.use(conferencistasRouter);
+app.use(auditoriosRouter);
+app.use(reservaRouter);
 
 app.use((req,res) =>{
     res.status(404).json({msg:"Endpoint no encontrado vuelve a intentarlo"})

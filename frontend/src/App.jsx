@@ -9,7 +9,7 @@ import Layout from './components/home/Layout'
 import CrearConferencista from './components/conferencistas/CrearConferencista'
 import GestionarConferencista from './components/conferencistas/GestionarConferencista'
 import CrearReserva from './components/reservas/CrearReserva'
-import GestionarReserva from './components/reservas/GestionarReserva'
+import GestionarReserva from './components/reservas//GestionarReserva'
 import CrearAuditorio from './components/auditorios/CrearAuditorio'
 import GestionarAuditorio from './components/auditorios/GestionarAuditorio'
 
