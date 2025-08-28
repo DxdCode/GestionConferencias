@@ -24,10 +24,10 @@ function CrearAuditorio() {
     }));
 
     const onSubmit = handleSubmit((data) => {
-        console.log("Datos del formulario:", data); // Depuración
+        console.log("Datos del formulario:", data); 
         const dataToSend = {
             ...data,
-            capacidad: Number(data.capacidad), // Asegura que sea número
+            capacidad: Number(data.capacidad), 
         };
         crearAuditorio(dataToSend, () => {
             reset();
