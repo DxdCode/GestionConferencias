@@ -5,6 +5,9 @@ import conferencistasRouter from './routers/ConferencistaRouter.js'
 import auditoriosRouter from './routers/AuditorioRouter.js'
 import reservaRouter from './routers/ReservaRouter.js'
 import cors from 'cors'
+import routerReserva from './routers/ReservaRouter.js'
+import routerAuditorio from './routers/AuditorioRouter.js'
+import routerConferencia from './routers/ConferencistaRouter.js'
 const app = express()
 dotenv.config()
 

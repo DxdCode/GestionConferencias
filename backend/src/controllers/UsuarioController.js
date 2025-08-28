@@ -12,8 +12,9 @@ const login = async (req, res) => {
         if (!verificarPassword) return res.status(400).json({ msg: "Contraseña es incorrecta" })
 
         const token = crearTokenJWT(usuarioBDD._id)
+        const {nombre} = usuarioBDD;
 
-        res.status(200).json({ msg: "Login correcto", token })
+        res.status(200).json({ msg: "Login correcto", token,nombre })
     } catch (error) {
         console.log(error)
         res.status(500).json({ msg: "Error con el servidor" })
