@@ -3,130 +3,132 @@ import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { Plus } from "lucide-react";
 
-import useMatricula from "../../hooks/useReservas";
-import useMateria from "../../hooks/useReservas";
-import useEstudiantes from "../../hooks/useConferencistas";
+import useReservas from "../../hooks/useReservas";
+import useAuditorios from "../../hooks/useAuditorios";
+import useConferencistas from "../../hooks/useConferencistas";
 
-import FormMatricula from "./componentes/FormMatricula";
+import FormReserva from "./componentes/FormReserva";
 import ModalSelector from "./componentes/ModalSelector";
 import CardItem from "./componentes/CardItem";
-import SelectedEstudiante from "./componentes/SelectEstudiante";
-import SelectedMaterias from "./componentes/SelectMaterias";
+import SelectedConferencista from "./componentes/SelectConferencista";
+import SelectedAuditorios from "./componentes/SelectedAuditorios";
 
-function CrearMatricula() {
-  const { crearMatricula, loading } = useMatricula();
-  const { materia } = useMateria();
-  const { estudiantes } = useEstudiantes();
+function CrearReserva() {
+  const { crearReserva, loading } = useReservas();
+  const { auditorios } = useAuditorios();
+  const { conferencistas } = useConferencistas();
   const navigate = useNavigate();
 
-  const [selectedEstudiante, setSelectedEstudiante] = useState(null);
-  const [selectMateria, setSelectMateria] = useState([]);
-  const [isOpenEstudiante, setIsOpenEstudiante] = useState(false);
-  const [isOpenMaterias, setIsOpenMaterias] = useState(false);
+  const [selectedConferencista, setSelectedConferencista] = useState(null);
+  const [selectedAuditorios, setSelectedAuditorios] = useState([]);
+  const [isOpenConferencista, setIsOpenConferencista] = useState(false);
+  const [isOpenAuditorios, setIsOpenAuditorios] = useState(false);
 
-  // Handlers estudiante
-  const handleClickEstudiante = (est) => setSelectedEstudiante(est);
-  const handleEliminarEstudiante = () => setSelectedEstudiante(null);
+  // Handlers conferencista
+  const handleClickConferencista = (conf) => setSelectedConferencista(conf);
+  const handleEliminarConferencista = () => setSelectedConferencista(null);
 
-  // Handlers materia
-  const handleClickMateria = (mat) => {
-    setSelectMateria((prev) => {
-      if (prev.some((m) => m._id === mat._id)) {
-        toast.error("Ya agregaste esa materia");
+  // Handlers auditorios
+  const handleClickAuditorio = (aud) => {
+    setSelectedAuditorios((prev) => {
+      if (prev.some((a) => a._id === aud._id)) {
+        toast.error("Ya agregaste ese auditorio");
         return prev;
       }
-      return [...prev, mat];
+      return [...prev, aud];
     });
   };
-  const handleEliminarMateria = (id) =>
-    setSelectMateria((prev) => prev.filter((m) => m._id !== id));
+  const handleEliminarAuditorio = (id) =>
+    setSelectedAuditorios((prev) => prev.filter((a) => a._id !== id));
 
   // Submit
-  const crearMatriculaData = (data) => {
+  const crearReservaData = (data) => {
     const submitData = {
       ...data,
-      estudiante: selectedEstudiante?._id,
-      materia: selectMateria.map((m) => m._id),
+      conferencista: selectedConferencista?._id,
+      auditorios: selectedAuditorios.map((a) => a._id),
     };
 
-    crearMatricula(submitData, () => {
-      setSelectMateria([]);
-      setSelectedEstudiante(null);
-      setTimeout(() => navigate("/dashboard/matriculas/gestionar"), 2000);
+    crearReserva(submitData, () => {
+      setSelectedAuditorios([]);
+      setSelectedConferencista(null);
+      setTimeout(() => navigate("/dashboard/reservas/gestionar"), 2000);
     });
   };
 
   return (
     <section>
       <ToastContainer />
-      <h2 className="text-3xl font-bold mb-2 text-sec">Crear Matrícula</h2>
+      <h2 className="text-3xl font-bold mb-2 text-sec">Crear Reserva</h2>
 
       {/* Formulario */}
-      <FormMatricula onSubmit={crearMatriculaData} loading={loading} />
+      <FormReserva onSubmit={crearReservaData} loading={loading} />
 
       {/* Botones de abrir modales */}
       <div className="flex gap-4 my-4">
         <button
           type="button"
-          onClick={() => setIsOpenEstudiante(true)}
+          onClick={() => setIsOpenConferencista(true)}
           className="bg-blue-500 px-4 py-2 flex items-center gap-2 text-white rounded hover:bg-blue-600 transition"
         >
-          <Plus size={20} /> Agregar Estudiante
+          <Plus size={20} /> Agregar Conferencista
         </button>
         <button
           type="button"
-          onClick={() => setIsOpenMaterias(true)}
+          onClick={() => setIsOpenAuditorios(true)}
           className="bg-blue-500 px-4 py-2 flex items-center gap-2 text-white rounded hover:bg-blue-600 transition"
         >
-          <Plus size={20} /> Agregar Materia
+          <Plus size={20} /> Agregar Auditorio
         </button>
       </div>
 
-      {/* Estudiante seleccionado */}
-      <SelectedEstudiante
-        estudiante={selectedEstudiante}
-        onRemove={handleEliminarEstudiante}
+      {/* Conferencista seleccionado */}
+      <SelectedConferencista
+        conferencista={selectedConferencista}
+        onRemove={handleEliminarConferencista}
       />
 
-      {/* Materias seleccionadas */}
-      <SelectedMaterias materias={selectMateria} onRemove={handleEliminarMateria} />
+      {/* Auditorios seleccionados */}
+      <SelectedAuditorios
+        auditorios={selectedAuditorios}
+        onRemove={handleEliminarAuditorio}
+      />
 
-      {/* Modal Estudiantes */}
+      {/* Modal Conferencistas */}
       <ModalSelector
-        isOpen={isOpenEstudiante}
-        onClose={() => setIsOpenEstudiante(false)}
-        title="Lista de Estudiantes"
-        items={estudiantes}
-        renderItem={(est) => (
+        isOpen={isOpenConferencista}
+        onClose={() => setIsOpenConferencista(false)}
+        title="Lista de Conferencistas"
+        items={conferencistas}
+        renderItem={(conf) => (
           <CardItem
-            key={est._id}
-            item={est}
-            type="estudiante"
-            onClick={handleClickEstudiante}
-            isSelected={selectedEstudiante?._id === est._id}
+            key={conf._id}
+            item={conf}
+            type="conferencista"
+            onClick={handleClickConferencista}
+            isSelected={selectedConferencista?._id === conf._id}
           />
         )}
       />
 
-      {/* Modal Materias */}
+      {/* Modal Auditorios */}
       <ModalSelector
-        isOpen={isOpenMaterias}
-        onClose={() => setIsOpenMaterias(false)}
-        title="Lista de Materias"
-        items={materia}
-        renderItem={(mat) => (
+        isOpen={isOpenAuditorios}
+        onClose={() => setIsOpenAuditorios(false)}
+        title="Lista de Auditorios"
+        items={auditorios}
+        renderItem={(aud) => (
           <CardItem
-            key={mat._id}
-            item={mat}
-            type="materia"
-            onClick={handleClickMateria}
-            isSelected={selectMateria.some((m) => m._id === mat._id)} // ✅ fix
+            key={aud._id}
+            item={aud}
+            type="auditorio"
+            onClick={handleClickAuditorio}
+            isSelected={selectedAuditorios.some((a) => a._id === aud._id)}
           />
         )}
       />
-
     </section>
   );
 }
 
-export default CrearMatricula;
+export default CrearReserva;
